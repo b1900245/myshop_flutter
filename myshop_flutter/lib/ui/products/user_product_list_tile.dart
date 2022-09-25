@@ -22,7 +22,7 @@ const UserProductListTile(
           child : Row(
             children: <Widget>[
               buildEditButton(context),
-              buildDeleteButton(context)),
+              buildDeleteButton(context),
             ],
           ),
         ),
@@ -36,7 +36,7 @@ const UserProductListTile(
         print('Delete a product');
       },
       color: Theme.of(context).errorColor,
-      ),
+      );
   }
 
   Widget buildEditButton(BuildContext context) {

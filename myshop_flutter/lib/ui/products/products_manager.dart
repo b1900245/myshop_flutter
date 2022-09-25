@@ -1,5 +1,5 @@
-import 'package:myshop_flutter/models/products.dart';
-class ProductManager {
+import '../../models/products.dart';
+class ProductsManager {
     final List<Product> _items = [
     Product(
       id: 'p1',
@@ -45,7 +45,7 @@ class ProductManager {
     return [..._items];
   }
 
-  List<Product> get favoriteItems{
-    return _items.where((prodItem)=> prodItem.isFavorite).toList();
+  Product findById (String id){
+    return _items.firstWhere((prod) => prod.id ==id);
   }
 }

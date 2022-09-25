@@ -1,51 +1,48 @@
 import 'package:flutter/material.dart';
 
-import 'p';
-import '../../models/products.dart';
+import 'user_product_list_tile.dart';
+import 'products_manager.dart';
 
-class UserProductsScreen extends StatelessElement{
-  final Product product;
-
-  const UserProductsScreen(
-    this.product,{
-      super.key,
-    });
+class UserProductsScreen extends StatelessWidget{
+  const UserProductsScreen({super.key});
 
   @override
   Widget build(BuildContext context){
-    return ListTile(
-      title: Text(product.title),
-      leading: CircleAvatar(
-        backgroundImage:NetworkImage(product.imageUrl),
-     ),
-     trailing: SizedBox(
-      width: 100,
-      child: Row(
-        children: <Widget>[
-          buildEditButton(context),
-          buildDeleteButton(context),
+    final productManager = ProductsManager();
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Your Products'),
+        actions: <Widget>[
+          buildAddButton(),
         ],
       ),
-     ),
+      body: RefreshIndicator(
+        onRefresh: () async => print('refresh products'),
+        child: buildUserProductListview(productManager),
+      ),
     );
   }
 
-  Widget buildDeleteButton(BuildContext context){
-    return IconButton(
-      icon: const Icon(Icons.delete),
-      onPressed: () async{
-        print('Delete a product');
-      },
-      color: Theme.of(context).errorColor,
+  Widget buildUserProductListview(ProductsManager productManager){
+    return ListView.builder(
+      itemCount: productManager.itemCount,
+      itemBuilder:(ctx, i) => Column(
+        children :[
+          UserProductListTile(
+            productManager.items[i],
+          ),
+          const Divider(),
+        ],
+      ),
     );
   }
-  Widget buildEditButton(BuildContext context){
+
+  Widget buildAddButton(){
     return IconButton(
-      icon: const Icon(Icons.delete),
-      onPressed: () async{
+      icon: const Icon(Icons.add),
+      onPressed: () {
         print('Go to edit product screen');
       },
-      color: Theme.of(context).primaryColor,
     );
   }
 }

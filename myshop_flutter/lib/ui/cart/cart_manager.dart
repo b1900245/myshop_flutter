@@ -14,7 +14,7 @@ class CartManager{
     return _items.length;
   }
 
-  List<CartItem> get Products{
+  List<CartItem> get products{
     return _items.values.toList();
   }
 
