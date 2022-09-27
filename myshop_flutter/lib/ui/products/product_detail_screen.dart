@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 import '../../models/product.dart';
 
 class ProductDetailScreen extends StatelessWidget{
-  const ProductDetailScreen(
+    static const routeName = '/product-detail';
+   const ProductDetailScreen(
     this.product, {
     super.key,
     });

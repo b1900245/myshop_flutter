@@ -20,10 +20,9 @@ import 'product_detail_screen.dart';
           footer: buildGridFooterBar(context),
           child: GestureDetector(
             onTap: () {
-              Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder :(ctx) => ProductDetailScreen(product),
-                ),
+              Navigator.of(context).pushNamed(
+                ProductDetailScreen.routeName,
+                arguments: product.id,
               );
           },
           child: Image.network(
