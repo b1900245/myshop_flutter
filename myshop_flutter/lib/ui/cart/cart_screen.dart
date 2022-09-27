@@ -8,6 +8,8 @@ class CartScreen extends StatelessWidget{
 
   const CartScreen({super.key});
 
+  get productCount => null;
+
   @override
   Widget build(BuildContext context){
     final cart = CartManager();

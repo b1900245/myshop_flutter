@@ -4,13 +4,13 @@ class TopRightBadge extends StatelessWidget{
   const TopRightBadge({
     super.key,
     required this.child,
-    required this.date,
+    required this.data,
     this.color,
   });
 
 
   final Widget child;
-  final Object date;
+  final Object data;
   final Color? color;
 
   @override
@@ -33,7 +33,7 @@ class TopRightBadge extends StatelessWidget{
               minHeight: 16,
             ),
             child: Text(
-              date.toString(),
+              data.toString(),
               textAlign: TextAlign.center,
               style: const TextStyle(
                 fontSize: 10,
