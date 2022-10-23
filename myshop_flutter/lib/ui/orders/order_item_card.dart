@@ -5,20 +5,19 @@ import 'package:intl/intl.dart';
 
 import '../../models/order_item.dart';
 
-class OrderItemCard extends StatefulWidget{
+class OrderItemCard extends StatefulWidget {
   final OrderItem order;
-
   const OrderItemCard(this.order, {super.key});
 
   @override
-  State<OrderItemCard> createState() => _OrderItemCardState();
+  State<OrderItemCard> createState() => _OderItemCardState();
 }
 
-class _OrderItemCardState extends State<OrderItemCard> {
+class _OderItemCardState extends State<OrderItemCard> {
   var _expanded = false;
 
   @override
-  Widget build(BuildContext context){
+  Widget build(BuildContext context) {
     return Card(
       margin: const EdgeInsets.all(10),
       child: Column(
@@ -30,52 +29,52 @@ class _OrderItemCardState extends State<OrderItemCard> {
     );
   }
 
-  Widget buildOrderDetails(){
+  Widget buildOrderDetails() {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 4),
-      height: min(widget.order.productCount *20.0 * 10,100),
+      height: min(widget.order.productCount * 20.0 + 10, 100),
       child: ListView(
         children: widget.order.products
-        .map(
-          (prod) => Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: <Widget>[
-              Text(
-                prod.title,
-                style: const TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                ),
+            .map(
+              (prod) => Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  Text(
+                    prod.title,
+                    style: const TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  Text(
+                    '${prod.quantity}x \$${prod.price}',
+                    style: const TextStyle(
+                      fontSize: 18,
+                      color: Colors.grey,
+                    ),
+                  )
+                ],
               ),
-              Text(
-                '${prod.quantily}x \$${prod.price}',
-                style : const TextStyle(
-                  fontSize : 18,
-                  color : Colors.grey,
-                ),
-              )
-            ],
-          ),
-        )
-        .toList(),
+            )
+            .toList(),
       ),
     );
   }
 
-  Widget buildOrderSummary(){
+  Widget buildOrderSummary() {
     return ListTile(
       title: Text('\$${widget.order.amount}'),
       subtitle: Text(
         DateFormat('dd/MM/yyyy hh:mm').format(widget.order.dateTime),
-        ),
-        trailing: IconButton(
-          icon: Icon(_expanded ? Icons.expand_less : Icons.expand_more),
-          onPressed: (){
-            setState(() {
-              _expanded =! _expanded;
-            });
-          },
-        ),
-      );
-    }
+      ),
+      trailing: IconButton(
+        icon: Icon(_expanded ? Icons.expand_less : Icons.expand_more),
+        onPressed: () {
+          setState(() {
+            _expanded = !_expanded;
+          });
+        },
+      ),
+    );
   }
+}

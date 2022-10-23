@@ -1,51 +1,35 @@
 import 'package:flutter/material.dart';
-
+import 'product_grid_tile.dart';
+import 'products_manager.dart';
 import '../../models/product.dart';
+import 'package:provider/provider.dart';
 
-class UserProductListTile extends StatelessWidget {
-  final Product product;
-
-const UserProductListTile(
-  this.product,{
-    super.key,
-  });
+class ProductGrid extends StatelessWidget {
+  final bool showFavorite;
+  const ProductGrid(this.showFavorite, {super.key});
 
   @override
   Widget build(BuildContext context) {
-    return ListTile (
-        title: Text(product.title),
-        leading : CircleAvatar(
-          backgroundImage: NetworkImage(product.imageUrl),
-        ),
-        trailing :SizedBox(
-          width : 100,
-          child : Row(
-            children: <Widget>[
-              buildEditButton(context),
-              buildDeleteButton(context),
-            ],
-          ),
-        ),
-      );
-    }
+    // Đọc ra danh sách các product sẽ được hiển thị từ ProductsManager
 
-  Widget buildDeleteButton(BuildContext context) {
-    return IconButton(
-      icon: const Icon(Icons.delete),
-      onPressed:() async{
-        print('Delete a product');
-      },
-      color: Theme.of(context).errorColor,
-      );
-  }
+    final productsManager = ProductsManager();
+    // final products =
+    //     showFavorite ? productsManager.favoriteItems : productsManager.items;
+    final products = context.select<ProductsManager, List<Product>>(
+        (productsManager) => showFavorite
+            ? productsManager.favoriteItems
+            : productsManager.items);
 
-  Widget buildEditButton(BuildContext context) {
-    return IconButton(
-      icon: const Icon(Icons.edit),
-      onPressed: (){
-        print('Go to edit product screen');
-      },
-      color : Theme.of(context).primaryColor,
+    return GridView.builder(
+      padding: const EdgeInsets.all(10.0),
+      itemCount: products.length,
+      itemBuilder: (ctx, i) => ProductGridTitle(products[i]),
+      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: 2,
+        childAspectRatio: 3 / 2,
+        crossAxisSpacing: 10,
+        mainAxisSpacing: 10,
+      ),
     );
   }
 }
